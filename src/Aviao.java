@@ -38,15 +38,15 @@ public class Aviao extends Aeronave{
 	}
 
 	public int getAssentos() {
-		return assentos;
+		return assento;
 	}
 
 	public void setAssentos(int assentos) {
-		this.assentos = assentos;
+		this.assento = assentos;
 	}
 	@Override
 	public String toString() {
-		return "Aviao [fileira=" + fileira + ", assentos=" + assentos
+		return "Aviao [fileira=" + fileira + ", assentos=" + assento
 				+ ", modelo=" + modelo + "]";
 	}
 }
