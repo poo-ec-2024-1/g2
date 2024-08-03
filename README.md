@@ -31,6 +31,7 @@ Yan Santos (Analista de Sistema)
 
 ## Modelagem Inicial: 
 
-![346746971-66186eac-cdf3-40ac-847c-be1aff143d85]![image](https://github.com/user-attachments/assets/5a44f821-b83a-4f9f-9e7f-e8d7a82b0d68)
+![image](https://github.com/user-attachments/assets/39d5b118-d139-47dd-93f2-91abafa398ae)
+
 
 
