@@ -21,15 +21,16 @@ Otimização de tarefas: a partir da compactação de tarefas, otimizar os diver
 
 Gabriel Eduardo (BackEnd) 
 
-João Vitor Paiva (Analista de Sistemas) 
+João Vitor Paiva (Testador) 
 
 Matheus Teles (Líder/Documentador) 
 
 Victor Alves (FrontEnd) 
 
-Yan Santos (Testador) 
+Yan Santos (Analista de Sistema) 
 
 ## Modelagem Inicial: 
 
-![346746971-66186eac-cdf3-40ac-847c-be1aff143d85](https://github.com/poo-ec-2024-1/g2/assets/167904319/f5df8bef-f4d1-42f2-af8a-8df4538a2ae5)
+![346746971-66186eac-cdf3-40ac-847c-be1aff143d85]![image](https://github.com/user-attachments/assets/5a44f821-b83a-4f9f-9e7f-e8d7a82b0d68)
+
 
