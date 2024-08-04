@@ -1,3 +1,5 @@
+package model;
+
 public class Aeronave {
     
     protected String modelo;
