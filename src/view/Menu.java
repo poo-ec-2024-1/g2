@@ -39,7 +39,7 @@ public class Menu extends JFrame {
 
     private void initComponents() {
         JMenuBar barra = new JMenuBar();
-        JMenu prmt = new JMenu("Cadastro de Aeronaves");
+        JMenu prmt = new JMenu("Cadastro");
         JMenu rsva = new JMenu("Reservas");
         JMenu end = new JMenu("Encerrar Sistema");
 
@@ -230,12 +230,24 @@ public class Menu extends JFrame {
         }
 
         private void consultarLugaresVazios() {
-            // Implementação para consultar lugares vazios
+        try {
+            java.util.List<Voo> voos = vooDAO.readAll();
+            // Mostrar uma interface para selecionar o voo e consultar lugares vazios
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao buscar voos: " + ex.getMessage());
         }
+    }
 
-        private void consultarReservasRealizadas() {
-            // Implementação para consultar reservas realizadas
+
+            private void consultarReservasRealizadas() {
+        try {
+            java.util.List<Voo> voos = vooDAO.readAll();
+            // Mostrar uma interface para selecionar o voo e listar reservas
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao buscar voos: " + ex.getMessage());
         }
+    }
+
 
         private void finalizarSistema() throws Exception {
             dbHelper.close();
@@ -247,4 +259,5 @@ public class Menu extends JFrame {
         new Menu();
     }
 }
+
 
