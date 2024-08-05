@@ -6,7 +6,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import model.Aviao;
-import model.DatabaseManager;
+import model.DatabaseHelper;
 import model.Passageiro;
 import model.Voo;
 import java.sql.SQLException;
@@ -54,10 +54,10 @@ public class MenuController {
     @FXML
     private Button saveReservaButton;
 
-    private DatabaseManager dbManager;
+    private DatabaseHelper dbHelper;
 
     public void initialize() throws SQLException {
-        dbManager = new DatabaseManager();
+        dbHelper = new DatabaseHelper();
 
         // Populate ComboBoxes and other initialization
     }
@@ -70,7 +70,7 @@ public class MenuController {
 
         Aviao aviao = new Aviao(modelo, fileiras, assentos);
         try {
-            dbManager.getAviaoDao().create(aviao);
+            dbHelper.getAviaoDao().create(aviao);
             // Show success message
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -87,7 +87,7 @@ public class MenuController {
 
         Voo voo = new Voo(aviao, numeroVoo, data, hora);
         try {
-            dbManager.getVooDao().create(voo);
+            dbHelper.getVooDao().create(voo);
             // Show success message
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -105,7 +105,7 @@ public class MenuController {
 
         Passageiro passageiro = new Passageiro(nome, cpf);
         try {
-            dbManager.getPassageiroDao().create(passageiro);
+            dbHelper.getPassageiroDao().create(passageiro);
             // Show success message
         } catch (SQLException ex) {
             ex.printStackTrace();

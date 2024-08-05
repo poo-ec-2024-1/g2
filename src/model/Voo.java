@@ -2,6 +2,8 @@ package model;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import java.util.HashMap;
+import java.util.Map;
 
 @DatabaseTable(tableName = "voos")
 public class Voo {
@@ -11,19 +13,20 @@ public class Voo {
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
     private Aviao aviao;
 
-    @DatabaseField(canBeNull = false)
+    @DatabaseField
     private int numeroVoo;
 
-    @DatabaseField(canBeNull = false)
+    @DatabaseField
     private String data;
 
-    @DatabaseField(canBeNull = false)
+    @DatabaseField
     private String hora;
-    
-    @DatabaseField(foreign = true, foreignAutoRefresh = true)
-    private Aviao aeronave;
+
+    // Este mapa armazena reservas associando Passageiros aos seus assentos
+    private Map<Passageiro, String> reservas;
 
     public Voo() {
+        // ORMLite needs a no-arg constructor
     }
 
     public Voo(Aviao aviao, int numeroVoo, String data, String hora) {
@@ -31,6 +34,7 @@ public class Voo {
         this.numeroVoo = numeroVoo;
         this.data = data;
         this.hora = hora;
+        this.reservas = new HashMap<>();
     }
 
     public int getId() {
@@ -41,40 +45,35 @@ public class Voo {
         return aviao;
     }
 
-    public void setAviao(Aviao aviao) {
-        this.aviao = aviao;
-    }
-    
-    public void setAeronave(Aviao aeronave) {
-        this.aeronave = aeronave;
-    }
-
     public int getNumeroVoo() {
         return numeroVoo;
-    }
-
-    public void setNumeroVoo(int numeroVoo) {
-        this.numeroVoo = numeroVoo;
     }
 
     public String getData() {
         return data;
     }
 
-    public void setData(String data) {
-        this.data = data;
-    }
-
     public String getHora() {
         return hora;
     }
 
-    public void setHora(String hora) {
-        this.hora = hora;
+    public Map<Passageiro, String> getReservas() {
+        return reservas;
+    }
+
+    public void addReserva(Passageiro passageiro, int fileira, int assento) {
+        String assentoStr = "Fileira " + fileira + ", Assento " + assento;
+        reservas.put(passageiro, assentoStr);
     }
 
     @Override
     public String toString() {
-        return "Voo [id=" + id + ", aviao=" + aviao + ", numeroVoo=" + numeroVoo + ", data=" + data + ", hora=" + hora + "]";
+        return "Voo{" +
+                "numero=" + numeroVoo +
+                ", data='" + data + '\'' +
+                ", hora='" + hora + '\'' +
+                ", aviao=" + aviao +
+                '}';
     }
 }
+

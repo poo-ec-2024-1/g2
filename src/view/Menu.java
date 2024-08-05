@@ -1,20 +1,22 @@
 package view;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import javax.swing.*;
-import javax.swing.text.MaskFormatter;
 import model.DatabaseHelper;
 import dao.AviaoDAO;
 import dao.VooDAO;
+import dao.PassageiroDAO;
 import model.Aviao;
 import model.Voo;
+import model.Passageiro;
 
 public class Menu extends JFrame {
     private DatabaseHelper dbHelper;
     private AviaoDAO aviaoDAO;
     private VooDAO vooDAO;
+    private PassageiroDAO passageiroDAO;
 
     public Menu() {
         super("Controle de Passagens Aéreas");
@@ -22,15 +24,16 @@ public class Menu extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
-        
-        dbHelper = new DatabaseHelper();
+
         try {
-            aviaoDAO = new AviaoDAO(dbHelper.getConnectionSource());
-            vooDAO = new VooDAO(dbHelper.getConnectionSource());
+            dbHelper = new DatabaseHelper();
+            aviaoDAO = dbHelper.getAviaoDao();
+            vooDAO = dbHelper.getVooDao();
+            passageiroDAO = dbHelper.getPassageiroDao();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         initComponents();
     }
 
@@ -73,28 +76,25 @@ public class Menu extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             String comando = e.getActionCommand();
-            
-            try{
 
-            if (comando.equals("Cadastrar Aeronave")) {
-                cadastrarAeronave();
-            } else if (comando.equals("Cadastrar Voo")) {
-                cadastrarVoo();
-            } else if (comando.equals("Fazer Reserva")) {
-                // implementação de fazer reserva
-            } else if (comando.equals("Consultar Lugares Vazios")) {
-                // implementação de consultar lugares vazios
-            } else if (comando.equals("Consultar Reservas Realizadas")) {
-                // implementação de consultar reservas realizadas
-            } else if (comando.equals("Finalizar Sistema")) {
-                finalizarSistema();
+            try {
+                if (comando.equals("Cadastrar Aeronave")) {
+                    cadastrarAeronave();
+                } else if (comando.equals("Cadastrar Voo")) {
+                    cadastrarVoo();
+                } else if (comando.equals("Fazer Reserva")) {
+                    fazerReserva();
+                } else if (comando.equals("Consultar Lugares Vazios")) {
+                    consultarLugaresVazios();
+                } else if (comando.equals("Consultar Reservas Realizadas")) {
+                    consultarReservasRealizadas();
+                } else if (comando.equals("Finalizar Sistema")) {
+                    finalizarSistema();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
         }
-        
-        catch(Exception ex){
-            ex.printStackTrace();
-        }
-    }
 
         private void cadastrarAeronave() {
             JLabel lblModelo = new JLabel("Modelo:");
@@ -132,9 +132,9 @@ public class Menu extends JFrame {
             JLabel lblNumeroVoo = new JLabel("Número do Voo:");
             JTextField txtNumeroVoo = new JTextField(5);
             JLabel lblData = new JLabel("Data:");
-            JFormattedTextField txtData = new JFormattedTextField(createFormatter("##/##/####"));
+            JTextField txtData = new JTextField(10);
             JLabel lblHora = new JLabel("Hora:");
-            JFormattedTextField txtHora = new JFormattedTextField(createFormatter("##:##"));
+            JTextField txtHora = new JTextField(5);
 
             try {
                 java.util.List<Aviao> avioes = aviaoDAO.readAll();
@@ -175,20 +175,71 @@ public class Menu extends JFrame {
             }
         }
 
+        private void fazerReserva() {
+            JLabel lblVoo = new JLabel("Voo:");
+            JLabel lblNome = new JLabel("Nome:");
+            JTextField txtNome = new JTextField(10);
+            JLabel lblCPF = new JLabel("CPF:");
+            JTextField txtCPF = new JTextField(11);
+            JLabel lblFileira = new JLabel("Fileira:");
+            JTextField txtFileira = new JTextField(3);
+            JLabel lblAssento = new JLabel("Assento:");
+            JTextField txtAssento = new JTextField(3);
+
+            try {
+                java.util.List<Voo> voos = vooDAO.readAll();
+                String[] vooStrings = new String[voos.size()];
+                for (int i = 0; i < voos.size(); i++) {
+                    vooStrings[i] = voos.get(i).toString();
+                }
+
+                JComboBox<String> cbVoos = new JComboBox<>(vooStrings);
+
+                Object[] message = {
+                    lblVoo, cbVoos,
+                    lblNome, txtNome,
+                    lblCPF, txtCPF,
+                    lblFileira, txtFileira,
+                    lblAssento, txtAssento
+                };
+
+                int option = JOptionPane.showConfirmDialog(null, message, "Fazer Reserva", JOptionPane.OK_CANCEL_OPTION);
+
+                if (option == JOptionPane.OK_OPTION) {
+                    try {
+                        int vooIndex = cbVoos.getSelectedIndex();
+                        Voo voo = voos.get(vooIndex);
+                        String nome = txtNome.getText();
+                        String cpf = txtCPF.getText();
+                        int fileira = Integer.parseInt(txtFileira.getText());
+                        int assento = Integer.parseInt(txtAssento.getText());
+
+                        Passageiro passageiro = new Passageiro(nome, cpf);
+                        passageiroDAO.create(passageiro);
+                        voo.addReserva(passageiro, fileira, assento);
+                        vooDAO.update(voo);
+
+                        JOptionPane.showMessageDialog(null, "Reserva feita com sucesso!");
+                    } catch (NumberFormatException | SQLException ex) {
+                        JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+                    }
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao buscar voos: " + ex.getMessage());
+            }
+        }
+
+        private void consultarLugaresVazios() {
+            // Implementação para consultar lugares vazios
+        }
+
+        private void consultarReservasRealizadas() {
+            // Implementação para consultar reservas realizadas
+        }
+
         private void finalizarSistema() throws Exception {
             dbHelper.close();
             System.exit(0);
-        }
-
-        private MaskFormatter createFormatter(String s) {
-            MaskFormatter formatter = null;
-            try {
-                formatter = new MaskFormatter(s);
-                formatter.setPlaceholderCharacter('_');
-            } catch (java.text.ParseException exc) {
-                System.err.println("formatter is bad: " + exc.getMessage());
-            }
-            return formatter;
         }
     }
 
