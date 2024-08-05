@@ -65,7 +65,23 @@ public class Voo {
         String assentoStr = "Fileira " + fileira + ", Assento " + assento;
         reservas.put(passageiro, assentoStr);
     }
-
+    
+    public void setNumeroVoo(int numeroVoo){
+        this.numeroVoo = numeroVoo;
+    }
+    
+    public void setData(String data){
+        this.data = data;
+    }
+    
+    public void setHora(String hora){
+        this.hora = hora;
+    }
+    
+    public void setAeronave(Aviao aviao){
+        this.aviao = aviao;
+    }
+    
     @Override
     public String toString() {
         return "Voo{" +

@@ -33,7 +33,7 @@ public class AviaoController {
             Aviao aviao = avioes.get(index);
             aviao.setModelo(modelo);
             aviao.setFileira(fileira);
-            aviao.setAssentos(assento);
+            aviao.setAssento(assento);
         }
     }
 
