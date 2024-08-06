@@ -73,11 +73,11 @@ public class Menu extends JFrame {
     }
 
     private class GerenciadorBotoes implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String comando = e.getActionCommand();
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String comando = e.getActionCommand();
 
-            try {
+        try {
                 if (comando.equals("Cadastrar Aeronave")) {
                     cadastrarAeronave();
                 } else if (comando.equals("Cadastrar Voo")) {
@@ -96,150 +96,149 @@ public class Menu extends JFrame {
             }
         }
 
-        private void cadastrarAeronave() {
-            JLabel lblModelo = new JLabel("Modelo:");
-            JTextField txtModelo = new JTextField(10);
-            JLabel lblFileira = new JLabel("Fileira:");
-            JTextField txtFileira = new JTextField(3);
-            JLabel lblAssento = new JLabel("Assento:");
-            JTextField txtAssento = new JTextField(3);
+    private void cadastrarAeronave() {    
+        JLabel lblModelo = new JLabel("Modelo:");        
+        JTextField txtModelo = new JTextField(10);
+        JLabel lblFileira = new JLabel("Fileira:");
+        JTextField txtFileira = new JTextField(3);
+        JLabel lblAssento = new JLabel("Assento:");
+        JTextField txtAssento = new JTextField(3);
+
+        Object[] message = {
+            lblModelo, txtModelo,
+            lblFileira, txtFileira,
+            lblAssento, txtAssento
+        };
+
+        int option = JOptionPane.showConfirmDialog(null, message, "Cadastrar Aeronave", JOptionPane.OK_CANCEL_OPTION);
+
+        if (option == JOptionPane.OK_OPTION) {
+            try {
+                String modelo = txtModelo.getText();
+                int fileira = Integer.parseInt(txtFileira.getText());
+                int assento = Integer.parseInt(txtAssento.getText());
+
+                Aviao aviao = new Aviao(modelo, fileira, assento);
+                aviaoDAO.create(aviao);
+
+                JOptionPane.showMessageDialog(null, "Aeronave cadastrada com sucesso!");
+            } catch (NumberFormatException | SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            }
+        }
+    }
+
+    private void cadastrarVoo() {
+        JLabel lblNumeroVoo = new JLabel("Número do Voo:");
+        JTextField txtNumeroVoo = new JTextField(5);
+        JLabel lblData = new JLabel("Data:");
+        JTextField txtData = new JTextField(10);
+        JLabel lblHora = new JLabel("Hora:");
+        JTextField txtHora = new JTextField(5);
+
+        try {
+            java.util.List<Aviao> avioes = aviaoDAO.readAll();
+            String[] modelos = new String[avioes.size()];
+            for (int i = 0; i < avioes.size(); i++) {
+                modelos[i] = avioes.get(i).getModelo();
+            }
+
+            JComboBox<String> cbModelos = new JComboBox<>(modelos);
 
             Object[] message = {
-                lblModelo, txtModelo,
-                lblFileira, txtFileira,
-                lblAssento, txtAssento
+                lblNumeroVoo, txtNumeroVoo,
+                lblData, txtData,
+                lblHora, txtHora,
+                cbModelos
             };
 
-            int option = JOptionPane.showConfirmDialog(null, message, "Cadastrar Aeronave", JOptionPane.OK_CANCEL_OPTION);
+            int option = JOptionPane.showConfirmDialog(null, message, "Cadastrar Voo", JOptionPane.OK_CANCEL_OPTION);
 
             if (option == JOptionPane.OK_OPTION) {
                 try {
-                    String modelo = txtModelo.getText();
-                    int fileira = Integer.parseInt(txtFileira.getText());
-                    int assento = Integer.parseInt(txtAssento.getText());
+                    int numeroVoo = Integer.parseInt(txtNumeroVoo.getText());
+                    String data = txtData.getText();
+                    String hora = txtHora.getText();
+                    int aeronaveIndex = cbModelos.getSelectedIndex();
 
-                    Aviao aviao = new Aviao(modelo, fileira, assento);
-                    aviaoDAO.create(aviao);
+                    Aviao aviao = avioes.get(aeronaveIndex);
+                    Voo voo = new Voo(aviao, numeroVoo, data, hora);
+                    vooDAO.create(voo);
 
-                    JOptionPane.showMessageDialog(null, "Aeronave cadastrada com sucesso!");
+                    JOptionPane.showMessageDialog(null, "Voo cadastrado com sucesso!");
                 } catch (NumberFormatException | SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
                 }
             }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao buscar aeronaves: " + ex.getMessage());
         }
+    }
 
-        private void cadastrarVoo() {
-            JLabel lblNumeroVoo = new JLabel("Número do Voo:");
-            JTextField txtNumeroVoo = new JTextField(5);
-            JLabel lblData = new JLabel("Data:");
-            JTextField txtData = new JTextField(10);
-            JLabel lblHora = new JLabel("Hora:");
-            JTextField txtHora = new JTextField(5);
+    private void fazerReserva() {
+        JLabel lblVoo = new JLabel("Voo:");
+        JLabel lblNome = new JLabel("Nome:");
+        JTextField txtNome = new JTextField(10);
+        JLabel lblCPF = new JLabel("CPF:");
+        JTextField txtCPF = new JTextField(11);
+        JLabel lblFileira = new JLabel("Fileira:");
+        JTextField txtFileira = new JTextField(3);
+        JLabel lblAssento = new JLabel("Assento:");
+        JTextField txtAssento = new JTextField(3);
 
-            try {
-                java.util.List<Aviao> avioes = aviaoDAO.readAll();
-                String[] modelos = new String[avioes.size()];
-                for (int i = 0; i < avioes.size(); i++) {
-                    modelos[i] = avioes.get(i).getModelo();
-                }
-
-                JComboBox<String> cbModelos = new JComboBox<>(modelos);
-
-                Object[] message = {
-                    lblNumeroVoo, txtNumeroVoo,
-                    lblData, txtData,
-                    lblHora, txtHora,
-                    cbModelos
-                };
-
-                int option = JOptionPane.showConfirmDialog(null, message, "Cadastrar Voo", JOptionPane.OK_CANCEL_OPTION);
-
-                if (option == JOptionPane.OK_OPTION) {
-                    try {
-                        int numeroVoo = Integer.parseInt(txtNumeroVoo.getText());
-                        String data = txtData.getText();
-                        String hora = txtHora.getText();
-                        int aeronaveIndex = cbModelos.getSelectedIndex();
-
-                        Aviao aviao = avioes.get(aeronaveIndex);
-                        Voo voo = new Voo(aviao, numeroVoo, data, hora);
-                        vooDAO.create(voo);
-
-                        JOptionPane.showMessageDialog(null, "Voo cadastrado com sucesso!");
-                    } catch (NumberFormatException | SQLException ex) {
-                        JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
-                    }
-                }
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao buscar aeronaves: " + ex.getMessage());
-            }
-        }
-
-        private void fazerReserva() {
-            JLabel lblVoo = new JLabel("Voo:");
-            JLabel lblNome = new JLabel("Nome:");
-            JTextField txtNome = new JTextField(10);
-            JLabel lblCPF = new JLabel("CPF:");
-            JTextField txtCPF = new JTextField(11);
-            JLabel lblFileira = new JLabel("Fileira:");
-            JTextField txtFileira = new JTextField(3);
-            JLabel lblAssento = new JLabel("Assento:");
-            JTextField txtAssento = new JTextField(3);
-
-            try {
-                java.util.List<Voo> voos = vooDAO.readAll();
-                String[] vooStrings = new String[voos.size()];
-                for (int i = 0; i < voos.size(); i++) {
-                    vooStrings[i] = voos.get(i).toString();
-                }
-
-                JComboBox<String> cbVoos = new JComboBox<>(vooStrings);
-
-                Object[] message = {
-                    lblVoo, cbVoos,
-                    lblNome, txtNome,
-                    lblCPF, txtCPF,
-                    lblFileira, txtFileira,
-                    lblAssento, txtAssento
-                };
-
-                int option = JOptionPane.showConfirmDialog(null, message, "Fazer Reserva", JOptionPane.OK_CANCEL_OPTION);
-
-                if (option == JOptionPane.OK_OPTION) {
-                    try {
-                        int vooIndex = cbVoos.getSelectedIndex();
-                        Voo voo = voos.get(vooIndex);
-                        String nome = txtNome.getText();
-                        String cpf = txtCPF.getText();
-                        int fileira = Integer.parseInt(txtFileira.getText());
-                        int assento = Integer.parseInt(txtAssento.getText());
-
-                        Passageiro passageiro = new Passageiro(nome, cpf);
-                        passageiroDAO.create(passageiro);
-                        voo.addReserva(passageiro, fileira, assento);
-                        vooDAO.update(voo);
-
-                        JOptionPane.showMessageDialog(null, "Reserva feita com sucesso!");
-                    } catch (NumberFormatException | SQLException ex) {
-                        JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
-                    }
-                }
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao buscar voos: " + ex.getMessage());
-            }
-        }
-
-        private void consultarLugaresVazios() {
         try {
             java.util.List<Voo> voos = vooDAO.readAll();
-            // Mostrar uma interface para selecionar o voo e consultar lugares vazios
+            String[] vooStrings = new String[voos.size()];
+            for (int i = 0; i < voos.size(); i++) {
+                vooStrings[i] = voos.get(i).toString();
+            }
+
+            JComboBox<String> cbVoos = new JComboBox<>(vooStrings);
+
+            Object[] message = {
+                lblVoo, cbVoos,
+                lblNome, txtNome,
+                lblCPF, txtCPF,
+                lblFileira, txtFileira,
+                lblAssento, txtAssento
+            };
+
+            int option = JOptionPane.showConfirmDialog(null, message, "Fazer Reserva", JOptionPane.OK_CANCEL_OPTION);
+
+            if (option == JOptionPane.OK_OPTION) {
+                try {
+                    int vooIndex = cbVoos.getSelectedIndex();
+                    Voo voo = voos.get(vooIndex);
+                    String nome = txtNome.getText();
+                    String cpf = txtCPF.getText();
+                    int fileira = Integer.parseInt(txtFileira.getText());
+                    int assento = Integer.parseInt(txtAssento.getText());
+
+                    Passageiro passageiro = new Passageiro(nome, cpf);
+                    passageiroDAO.create(passageiro);
+                    voo.addReserva(passageiro, fileira, assento);
+                    vooDAO.update(voo);
+
+                    JOptionPane.showMessageDialog(null, "Reserva feita com sucesso!");
+                } catch (NumberFormatException | SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+                }
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao buscar voos: " + ex.getMessage());
         }
     }
 
+    private void consultarLugaresVazios() {
+    try {
+        java.util.List<Voo> voos = vooDAO.readAll();
+        // Mostrar uma interface para selecionar o voo e consultar lugares vazios
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Erro ao buscar voos: " + ex.getMessage());
+    }
+    }
 
-            private void consultarReservasRealizadas() {
+    private void consultarReservasRealizadas() {
         try {
             java.util.List<Voo> voos = vooDAO.readAll();
             // Mostrar uma interface para selecionar o voo e listar reservas
@@ -248,13 +247,12 @@ public class Menu extends JFrame {
         }
     }
 
-
-        private void finalizarSistema() throws Exception {
-            dbHelper.close();
-            System.exit(0);
-        }
+    private void finalizarSistema() throws Exception {
+        dbHelper.close();
+        System.exit(0);
     }
-
+    
+    }
     public static void main(String[] args) {
         new Menu();
     }

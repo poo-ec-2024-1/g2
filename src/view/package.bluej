@@ -23,5 +23,5 @@ target1.name=Menu
 target1.showInterface=false
 target1.type=ClassTarget
 target1.width=120
-target1.x=10
-target1.y=110
+target1.x=220
+target1.y=130

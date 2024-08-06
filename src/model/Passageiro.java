@@ -30,9 +30,23 @@ public class Passageiro {
     public String getNome() {
         return nome;
     }
+    
+    public void setNome(String nome) {
+        if (nome == null || nome.trim().isEmpty()) {
+            throw new IllegalArgumentException("Nome cannot be null or empty");
+        }
+        this.nome = nome;
+    }
 
     public String getCpf() {
         return cpf;
+    }
+    
+    public void setCpf(String cpf) {
+        if (cpf == null || cpf.trim().isEmpty()) {
+            throw new IllegalArgumentException("CPF cannot be null or empty");
+        }
+        this.cpf = cpf;
     }
 
     @Override
