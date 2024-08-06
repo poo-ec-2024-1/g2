@@ -20,30 +20,34 @@ Cada menu possui itens que acionam funcionalidades específicas.
 3.1. Menu "Cadastro"
 Este menu permite o cadastro de novas aeronaves e voos.
 
-Cadastrar Aeronave
+3.1.1. Cadastrar Aeronave
 
 Objetivo: Permite ao usuário cadastrar uma nova aeronave no sistema.
-Funcionamento: Abre um diálogo para o usuário inserir o modelo, o número de fileiras e o número de assentos da aeronave. Esses dados são então salvos no banco de dados.
+Funcionamento: Abre um diálogo para o usuário inserir o modelo, o número de fileiras e o número de assentos da aeronave. Esses dados então salvos no banco de dados.
 Validações: Verifica se os dados inseridos são válidos e trata possíveis exceções.
-Cadastrar Voo
+
+3.1.2. Cadastrar Voo
 
 Objetivo: Permite ao usuário cadastrar um novo voo.
 Funcionamento: Abre um diálogo onde o usuário insere o número do voo, a data, a hora e seleciona o modelo da aeronave. Esses dados são então salvos no banco de dados.
 Validações: Similar ao cadastro de aeronaves, inclui tratamento de exceções e validação dos dados inseridos.
 
 3.2. Menu "Reservas"
+
 Este menu é responsável por operações relacionadas a reservas.
 
-Fazer Reserva
+3.2.1. Fazer Reserva
 
 Objetivo: Permite ao usuário fazer uma nova reserva em um voo.
 Funcionamento: Abre um diálogo onde o usuário seleciona um voo, insere o nome e CPF do passageiro, e escolhe a fileira e o assento. Essas informações são salvas no banco de dados.
 Validações: Verifica a consistência dos dados e lida com exceções, como falhas na comunicação com o banco de dados.
-Consultar Lugares Vazios
+
+3.2.2. Consultar Lugares Vazios
 
 Objetivo: Permite ao usuário verificar quais lugares estão disponíveis em um voo.
 Funcionamento: Pretende apresentar uma interface para seleção do voo e exibição dos lugares vazios. Contudo, a implementação específica dessa funcionalidade ainda não foi desenvolvida.
-Consultar Reservas Realizadas
+
+3.2.3. Consultar Reservas Realizadas
 
 Objetivo: Permite ao usuário listar as reservas realizadas em um voo.
 Funcionamento: Similar ao item anterior, a funcionalidade busca listar reservas, mas a implementação detalhada ainda está pendente.
@@ -57,12 +61,13 @@ Funcionamento: Fecha a conexão com o banco de dados e encerra a aplicação.
 Validações: Garante que todos os recursos sejam liberados antes de finalizar a aplicação.
 
 4. Implementação e Funcionalidade dos Diálogos
+
 Os diálogos usados para entrada de dados (JOptionPane.showConfirmDialog) permitem ao usuário inserir informações necessárias para cada operação. Estes diálogos utilizam componentes básicos como JTextField, JLabel, e JComboBox para capturar e mostrar informações.
 
 Cadastro de Aeronave e Voo: Utilizam JTextField para entrada de texto e JComboBox para seleção de modelos.
 Reserva: Inclui a seleção de voo via JComboBox e entrada de informações pessoais e de assento.
 
 5. Considerações Finais
-O sistema está projetado para ser intuitivo e fácil de usar, com menus claramente divididos por funcionalidade e diálogos para inserção de dados. No entanto, algumas funcionalidades estão apenas esboçadas e necessitam de desenvolvimento adicional, como a consulta de lugares vazios e a listagem de reservas realizadas.
 
-Para garantir uma melhor experiência ao usuário e a integridade dos dados, é essencial concluir as funcionalidades pendentes e realizar testes rigorosos para validar o funcionamento correto da aplicação.
+O sistema está projetado para ser intuitivo e fácil de usar, com menus claramente divididos por funcionalidade e diálogos para inserção de dados. No entanto, algumas funcionalidades estão apenas esboçadas e necessitam de desenvolvimento adicional, como a consulta de lugares vazios e a listagem de reservas realizadas.
+Para garantir uma melhor experiência ao usuário, é essencial concluir as funcionalidades pendentes e realizar testes rigorosos para validar o funcionamento correto da aplicação.
