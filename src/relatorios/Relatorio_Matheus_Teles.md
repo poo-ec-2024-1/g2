@@ -1,73 +1,17 @@
-1. Introdução
+Sou o aluno Matheus Teles e fiquei encarregado com a parte de fazer o front-end do projeto.Quando criamos o grupo,fui designado ao papel de líder e documentador,no entanto,devido a algumas situações ao qual meu grupo foi passando acabei mudando de função e nessa reta final acabei me consolidando na tarefa, auxiliando também meus companheiros em suas atividades.Assim como todo front-end, fiquei encarregado de desenvolver a interface gráfica da aplicação de passagens aéreas,incorporando elementos do javafx e ormlite.Devido a dificuldade que não só eu como outros do meu grupo sentiram de criar interfaces no scene builder busquei outros meios,tentando e pesquisando até mesmo sobre java swing e outros recursos para desenvolvê-las.A seguir, vou apresentar algumas das minhas participações no projeto:
 
-O código apresentado implementa uma interface gráfica para um sistema de controle de passagens aéreas utilizando a biblioteca Swing do Java. A aplicação permite o cadastro de aeronaves e voos, a realização de reservas, e a consulta de lugares vazios e reservas realizadas. A seguir, detalharemos as funcionalidades e a finalidade de cada componente da interface.
+Primeiramente, com o código fornecido pelo Gabriel Eduardo (back-end)- que já estava no formato MVC mas ele não havia feito o commit - eu acabei comitando o código que ele me enviou já incorporando partes do ormlite em algumas classes como voo e avião e desenvolvendo os DAO para encapsular a lógica do acesso ao banco de dados.Assim, a parte de cadastro de aeronave e voos já estava funcional.Além disso na classe menu já desenvolvi o padrão da interface com a segmentação nas operações: cadastro de aeronaves, cadastro de voos, reserva, consultar lugares vazios, consultar reservas realizadas e finalizar o sistema.Conforme commit abaixo:
 
-2. Estrutura Geral da Interface
+https://github.com/poo-ec-2024-1/g2/commit/147b53f35002f6d68924536cee5d8b036042735f
 
-2.1. Classe Menu
-A classe Menu estende JFrame e serve como a janela principal da aplicação. Ela configura o título, o tamanho, o fechamento e a visibilidade da janela, além de inicializar componentes gráficos e conectores de banco de dados.
+Após isso vieram commits buscando desenvolver a parte do cadastro da reserva com a atualização de algumas classes como a menu, menucontroller, databasehelper, passageiro, voo e a criação de um DAO para a classe passageiro.Em particular, ampliei o uso do ormlite para a classe passageiro.Então, a operação de fazer a reserva passava a ser funcional:
 
-2.2. Componentes da Interface
-A interface gráfica é composta por uma barra de menu (JMenuBar) contendo três menus principais:
+https://github.com/poo-ec-2024-1/g2/commit/a487441edad8c28758a6e1aa919183f122ee2399
+https://github.com/poo-ec-2024-1/g2/commit/504f5249c2318c504b14f47b2c6f9ebb4837f449
 
-Cadastro
-Reservas
-Encerrar Sistema
-Cada menu possui itens que acionam funcionalidades específicas.
+Em sentido mais técnico, os diálogos usados para entrada de dados (JOptionPane.showConfirmDialog) permitem ao usuário inserir informações necessárias para as operações. Estes diálogos utilizam componentes básicos como JTextField, JLabel, e JComboBox.Para o cadastro de aeronave e voo utilizamos o JTextField para a entrada de dados e o JComboBox para a seleção de modelos.Já na parte da reserva incluimos a seleção de voo com o JComboBox e a entrada dos dados pessoas e do assento.
 
-3. Menus e Itens de Menu
+No entanto, não conseguimos uma lógica para as operações consultar lugares vazios e consultar reservas realizadas que apesar de aparecerem na interface estão sem realizar nenhuma operação.
 
-3.1. Menu "Cadastro"
-Este menu permite o cadastro de novas aeronaves e voos.
 
-3.1.1. Cadastrar Aeronave
-
-Objetivo: Permite ao usuário cadastrar uma nova aeronave no sistema.
-Funcionamento: Abre um diálogo para o usuário inserir o modelo, o número de fileiras e o número de assentos da aeronave. Esses dados então salvos no banco de dados.
-Validações: Verifica se os dados inseridos são válidos e trata possíveis exceções.
-
-3.1.2. Cadastrar Voo
-
-Objetivo: Permite ao usuário cadastrar um novo voo.
-Funcionamento: Abre um diálogo onde o usuário insere o número do voo, a data, a hora e seleciona o modelo da aeronave. Esses dados são então salvos no banco de dados.
-Validações: Similar ao cadastro de aeronaves, inclui tratamento de exceções e validação dos dados inseridos.
-
-3.2. Menu "Reservas"
-
-Este menu é responsável por operações relacionadas a reservas.
-
-3.2.1. Fazer Reserva
-
-Objetivo: Permite ao usuário fazer uma nova reserva em um voo.
-Funcionamento: Abre um diálogo onde o usuário seleciona um voo, insere o nome e CPF do passageiro, e escolhe a fileira e o assento. Essas informações são salvas no banco de dados.
-Validações: Verifica a consistência dos dados e lida com exceções, como falhas na comunicação com o banco de dados.
-
-3.2.2. Consultar Lugares Vazios
-
-Objetivo: Permite ao usuário verificar quais lugares estão disponíveis em um voo.
-Funcionamento: Pretende apresentar uma interface para seleção do voo e exibição dos lugares vazios. Contudo, a implementação específica dessa funcionalidade ainda não foi desenvolvida.
-
-3.2.3. Consultar Reservas Realizadas
-
-Objetivo: Permite ao usuário listar as reservas realizadas em um voo.
-Funcionamento: Similar ao item anterior, a funcionalidade busca listar reservas, mas a implementação detalhada ainda está pendente.
-
-3.3. Menu "Encerrar Sistema"
-Este menu encerra a aplicação e fecha a conexão com o banco de dados.
-
-Finalizar Sistema
-Objetivo: Permite ao usuário encerrar o sistema.
-Funcionamento: Fecha a conexão com o banco de dados e encerra a aplicação.
-Validações: Garante que todos os recursos sejam liberados antes de finalizar a aplicação.
-
-4. Implementação e Funcionalidade dos Diálogos
-
-Os diálogos usados para entrada de dados (JOptionPane.showConfirmDialog) permitem ao usuário inserir informações necessárias para cada operação. Estes diálogos utilizam componentes básicos como JTextField, JLabel, e JComboBox para capturar e mostrar informações.
-
-Cadastro de Aeronave e Voo: Utilizam JTextField para entrada de texto e JComboBox para seleção de modelos.
-Reserva: Inclui a seleção de voo via JComboBox e entrada de informações pessoais e de assento.
-
-5. Considerações Finais
-
-O sistema está projetado para ser intuitivo e fácil de usar, com menus claramente divididos por funcionalidade e diálogos para inserção de dados. No entanto, algumas funcionalidades estão apenas esboçadas e necessitam de desenvolvimento adicional, como a consulta de lugares vazios e a listagem de reservas realizadas.
-Para garantir uma melhor experiência ao usuário, é essencial concluir as funcionalidades pendentes e realizar testes rigorosos para validar o funcionamento correto da aplicação.
+Por fim,o sistema está projetado para ser intuitivo e fácil de usar conforme definimos como objetivo, com menus claramente divididos por funcionalidade e diálogos para inserção de dados. No entanto, algumas funcionalidades estão apenas esboçadas e necessitam de um maior desenvolvimento, como a consulta de lugares vazios e a listagem das reservas realizadas.Para garantir uma melhor experiência ao usuário, é essencial concluir as funcionalidades que faltam.
