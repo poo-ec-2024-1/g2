@@ -42,6 +42,8 @@ public class Passageiro {
         return cpf;
     }
     
+    //Setters adicionados
+    
     public void setCpf(String cpf) {
         if (cpf == null || cpf.trim().isEmpty()) {
             throw new IllegalArgumentException("CPF cannot be null or empty");
