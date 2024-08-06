@@ -36,7 +36,9 @@ Otimização de tarefas: a partir da compactação de tarefas, otimizar os diver
 ![image](https://github.com/user-attachments/assets/39d5b118-d139-47dd-93f2-91abafa398ae)
 
 ## Modelagem Final: 
-
+![mermaid-diagram-2024-08-05-191807](https://github.com/user-attachments/assets/9df87e71-d78e-4b3e-9793-74d861f44567)
+![Captura de tela 2024-08-05 232747](https://github.com/user-attachments/assets/760ebcd7-023d-42b7-a3a5-59909ba5af2e)
+![Captura de tela 2024-08-05 233614](https://github.com/user-attachments/assets/0a19b839-87a6-4846-87f7-1083f661d44c)
 
 
 ## Principais Comentários ao longo do projeto:
@@ -138,3 +140,4 @@ Problemas com o Bluej e JAVAFX, bugs com o ORMLITE e Banco de Dados e grande mod
 Finalização do Diagrama UML ,adição de Getters e Setters em algumas Classes que estavam faltando, alterações na Documentação, algumas partes do código não tiveram funcionalidade então o João foi removendo-as.
 Realização de outra reunião para finalizar.
 Depois de 7 horas tentando, não conseguimos resolver o bud da  reserva e assim enviamos tudo o que faltava e os relatórios de cada um.
+
