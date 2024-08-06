@@ -1,5 +1,7 @@
 package model;
 
+
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -16,11 +18,10 @@ public class Aviao extends Aeronave {
 
     @DatabaseField(canBeNull = false)
     private int assento;
-
-    // Assuming there is a class Aeronave that Aviao extends
+    
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
-    private Aeronave aeronave;
-
+    private Aviao aeronave;
+    
     public Aviao() {
     }
 
@@ -57,12 +58,8 @@ public class Aviao extends Aeronave {
     public void setAssento(int assento) {
         this.assento = assento;
     }
-
-    public Aeronave getAeronave() {
-        return aeronave;
-    }
-
-    public void setAeronave(Aeronave aeronave) {
+    
+    public void setAeronave(Aviao aeronave){
         this.aeronave = aeronave;
     }
 
