@@ -1,4 +1,4 @@
-Sou o aluno Gabriel Eduardo e meu meu pappel, na execução d projeto, foi de back-end.
+Sou o aluno Gabriel Eduardo e meu meu pappel, na execução do projeto, foi de back-end.
 
 No início do projeto, cada um de nós tivemos um atribuição inicial de tarefas, mas ao decorrer do projeto fomos mudando tais atribuições, devido a um cologa ter mais destreza em certa aerea do projeto. No entando, eu continuei na parte de desenvolvimento back-end. Ao decorrer das aulas presenciais e em lab. fomos criando o projeto e pensando emm como realizar o mesmo. Com as classes "mais básicas" feitas, fomos para parte mais avançada, a qual nos custou bastante dor de cabeça, pois tivemos vários bugs e problemas de compilação, pricipalmente nas classes de controler e algumas linhas de códigos com erro de codificação.
 A seguir, deixo o link a cerca dos primmeiros passos do projeto, que com o passar do semestre fomos modificnado.
